@@ -1,0 +1,17 @@
+{
+  "path": "/publications",
+  "description": "Publicaciones",
+  "method": "GET",
+  "datos": {
+    "posts": [
+      {
+        "title": "post1",
+        "details": "post 1 info"
+      },
+      {
+        "title": "post2",
+        "details": "post 2 info"
+      }
+    ]
+  }
+}
