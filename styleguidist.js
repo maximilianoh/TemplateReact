@@ -10,7 +10,7 @@ const styleguide = styleguidist({
     warn: console.warn
   },
   title: "React Style Guide Example",
-  components: ["src/reusable/table/containers/simple/TableContainerSimple.jsx"],
+  components: ["src/pages/page1/Page1.jsx"],
   defaultExample: true,
   serverHost: "127.0.0.1",
   serverPort: 6065,
