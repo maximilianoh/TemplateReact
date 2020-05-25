@@ -9,9 +9,7 @@
   },
   "scripts": {
     "start": "webpack-dev-server --env.development --progress",
-    "build": "webpack --env.production --progress --define",
-    "layout": "webpack --env.production --progress --define 'layout'",
-    "core": "webpack --env.production --progress --define 'core'",
+    "build": "webpack --env.production --progress --define 'app'",
     "jestCov": "jest --coverage",
     "t": "jest --coverage --",
     "lint": "eslint src --fix --ext .js --ext .jsx",

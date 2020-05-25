@@ -5,22 +5,22 @@ const LoadablePlugin = require("@loadable/webpack-plugin");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
   .BundleAnalyzerPlugin;
 
-let basicObjectFunction = pathComponent => {
+let basicObjectFunction = (pathComponent) => {
   return {
     optimization: {
       minimizer: [
         new TerserPlugin({
           terserOptions: {
             output: {
-              comments: false
+              comments: false,
             },
             exclude: /node_modules/,
-            include: path.resolve(__dirname, "src")
-          }
-        })
+            include: path.resolve(__dirname, "src"),
+          },
+        }),
       ],
       namedModules: true,
-      namedChunks: true
+      namedChunks: true,
     },
 
     // LOADERS
@@ -36,13 +36,13 @@ let basicObjectFunction = pathComponent => {
               options: {
                 presets: [
                   "@babel/preset-env",
-                  require.resolve("babel-preset-react-app")
-                ]
-              }
-            }
-          ]
-        }
-      ]
+                  require.resolve("babel-preset-react-app"),
+                ],
+              },
+            },
+          ],
+        },
+      ],
     },
 
     // PATH RESOLVE
@@ -51,8 +51,8 @@ let basicObjectFunction = pathComponent => {
       modules: [path.resolve(__dirname, `src/App`), "node_modules"],
       alias: {
         cJsx: path.resolve(__dirname, "src"),
-        "cJsx(.*)$": path.resolve(__dirname, "src")
-      }
+        "cJsx(.*)$": path.resolve(__dirname, "src"),
+      },
     },
 
     // Fake Api
@@ -65,23 +65,23 @@ let basicObjectFunction = pathComponent => {
       proxy: {
         "/resources/rest/": {
           target: "http://localhost:3005",
-          pathRewrite: { "^/resources/rest/": "" }
-        }
+          pathRewrite: { "^/resources/rest/": "" },
+        },
       },
       historyApiFallback: {
         index: `./index.html`,
         rewrites: [
           { from: /^\/$/, to: `./index.html` },
           { from: /^\/foo/, to: `./index.html` },
-          { from: /(.*)/, to: `./index.html` }
-        ]
+          { from: /(.*)/, to: `./index.html` },
+        ],
       },
-      port: 3515
-    }
+      port: 3515,
+    },
   };
 };
 
-let getFunction = env => {
+let getFunction = (env) => {
   const parameter = "App";
   let basicObject = basicObjectFunction(parameter);
   let rules = [...basicObject.module.rules];
@@ -101,16 +101,16 @@ let getFunction = env => {
         exclude: /node_modules/,
         loader: "eslint-loader",
         options: {
-          fix: true
-        }
+          fix: true,
+        },
       },
       {
         loader: "eslint-loader",
         options: {
           fix: true,
-          emitWarning: true
-        }
-      }
+          emitWarning: true,
+        },
+      },
     ];
     process.env.NODE_ENV = "development";
     mode = "development";
@@ -127,9 +127,9 @@ let getFunction = env => {
         options: {
           fix: true,
           emitWarning: true,
-          failOnWarning: true
-        }
-      }
+          failOnWarning: true,
+        },
+      },
     ];
 
     entry = entry + `/App.jsx`;
@@ -138,16 +138,16 @@ let getFunction = env => {
       new LoadablePlugin(),
       new BundleAnalyzerPlugin({
         analyzerMode: "static", //para que lo haga sólo al momento de hacer el build
-        openAnalyzer: true //para que nos muestre el resultado inmediatamente
-      })
+        openAnalyzer: true, //para que nos muestre el resultado inmediatamente
+      }),
     ];
   }
 
   let output = {
-    path: __dirname + `/compilados/${pfolder}/`,
+    path: __dirname + `/bundle/${pfolder}/`,
     filename: filename,
     chunkFilename: `${filename.split(".")[0]}[contenthash].bundle.js`,
-    publicPath: publicPath
+    publicPath: publicPath,
   };
 
   return {
@@ -156,7 +156,7 @@ let getFunction = env => {
     module: { rules: rules },
     mode: mode,
     entry,
-    output
+    output,
   };
 };
 
